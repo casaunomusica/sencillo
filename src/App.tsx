@@ -17,15 +17,15 @@ export default function App() {
     setIsNight(hours >= 19 || hours < 7);
   }, []);
 
-  const totalPrice = useMemo(() => {
-    let multiplier = 0;
-    if (units >= 2 && units <= 4) multiplier = 12;
-    else if (units >= 5 && units <= 9) multiplier = 10;
-    else if (units >= 10 && units <= 14) multiplier = 9;
-    else if (units >= 15 && units <= 20) multiplier = 8;
-    
-    return units * multiplier;
-  }, [units]);
+  const getMultiplier = (u: number) => {
+    if (u <= 3) return 12;
+    if (u <= 7) return 10;
+    if (u <= 13) return 9;
+    if (u <= 18) return 8;
+    return 7; // 19–20
+  };
+
+  const totalPrice = useMemo(() => units * getMultiplier(units), [units]);
 
   const increment = () => {
     if (units < 20) setUnits(prev => prev + 1);
