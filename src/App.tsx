@@ -48,10 +48,10 @@ export default function App() {
     bg: isNight ? 'bg-[#1A1614]' : 'bg-[#FDFBF7]',
     text: isNight ? 'text-[#FDFBF7]' : 'text-[#2D241E]',
     card: isNight ? 'bg-[#2D241E] border-stone-800 shadow-black/20' : 'bg-white border-stone-100 shadow-stone-200/50',
-    accent: isNight ? 'text-[#E67E7E]' : 'text-[#A34343]',
-    muted: isNight ? 'text-stone-500' : 'text-stone-400',
-    divider: isNight ? 'bg-stone-800' : 'bg-stone-100',
-    hover: isNight ? 'hover:bg-stone-800' : 'hover:bg-stone-50',
+    accent: isNight ? 'text-[#EC8B8B]' : 'text-[#A34343]',
+    muted: isNight ? 'text-stone-400' : 'text-stone-500',
+    divider: isNight ? 'bg-stone-700' : 'bg-stone-100',
+    hover: isNight ? 'hover:bg-stone-800' : 'hover:bg-stone-100/80',
   };
 
   return (
@@ -135,7 +135,7 @@ export default function App() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleWhatsAppClick}
-            className={`w-16 h-16 ${isNight ? 'bg-[#25D366]/90' : 'bg-[#25D366]'} text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:shadow-green-500/40`}
+            className={`w-16 h-16 ${isNight ? 'bg-[#128C7E]' : 'bg-[#25D366]'} text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:shadow-green-500/40`}
             aria-label="Enviar por WhatsApp"
           >
             <MessageCircle size={32} strokeWidth={1.2} />
