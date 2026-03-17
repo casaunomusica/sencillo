@@ -18,14 +18,16 @@ export default function App() {
   }, []);
 
   const getMultiplier = (u: number) => {
-    if (u <= 3) return 12;
-    if (u <= 7) return 10;
-    if (u <= 13) return 9;
-    if (u <= 18) return 8;
-    return 7; // 19–20
+    if (u <= 5) return 12 - (2 / 3) * (u - 2); // 2–5: 12 → 10
+    if (u <= 10) return 10 - 0.2 * (u - 5); // 6–10: 9.8 → 9
+    if (u <= 15) return 9 - 0.2 * (u - 10); // 11–15: 8.8 → 8
+    return 8 - 0.2 * (u - 15); // 16–20: 7.8 → 7
   };
 
-  const totalPrice = useMemo(() => units * getMultiplier(units), [units]);
+  const totalPrice = useMemo(() => {
+    const multiplier = getMultiplier(units);
+    return Math.round(units * multiplier);
+  }, [units]);
 
   const increment = () => {
     if (units < 20) setUnits(prev => prev + 1);
@@ -124,7 +126,7 @@ export default function App() {
 
         <div className="text-center mb-12">
           <p className={`${isNight ? 'text-stone-400' : 'text-stone-500'} italic text-sm transition-colors duration-700`}>
-            Criterio de eficiencia por cantidad
+            Eficiencia por cantidad: + es -
           </p>
         </div>
 
