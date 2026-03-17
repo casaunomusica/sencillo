@@ -59,22 +59,21 @@ export default function App() {
         animate={{ opacity: 1, y: 0 }}
         className={`w-full max-w-md ${theme.card} rounded-[2rem] shadow-xl py-14 px-8 border transition-colors duration-700`}
       >
-        <div className="grid grid-cols-2 gap-8 items-center mb-12 relative">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-1 mb-12 relative">
           {/* Vertical Divider */}
-          <div className={`absolute left-1/2 top-4 bottom-4 w-px ${theme.divider} -translate-x-1/2 transition-colors duration-700`} />
+          <div className={`absolute left-1/2 top-0 bottom-0 w-px ${theme.divider} -translate-x-1/2 transition-colors duration-700 pointer-events-none`} />
 
-          {/* Units Counter (Left) */}
-          <div className="flex flex-col items-center space-y-6">
-            <button 
+          {/* Fila 1 – Contador (izq): flecha ↑, número centrado, flecha ↓ */}
+          <div className="flex flex-col items-center min-h-[220px]">
+            <button
               onClick={increment}
               disabled={units >= 20}
-              className={`p-4 -m-2 rounded-full ${theme.hover} transition-colors disabled:opacity-20 flex items-center justify-center`}
+              className={`p-4 -m-2 rounded-full ${theme.hover} transition-colors disabled:opacity-20 flex items-center justify-center shrink-0`}
               aria-label="Aumentar unidades"
             >
               <ChevronUp size={32} strokeWidth={1.5} />
             </button>
-            
-            <div className="relative h-24 w-full flex items-center justify-center">
+            <div className="flex-1 w-full flex items-center justify-center relative min-h-[5rem]">
               <AnimatePresence initial={false}>
                 <motion.span
                   key={units}
@@ -82,39 +81,43 @@ export default function App() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15 }}
                   transition={{ duration: 0.15, ease: "easeOut" }}
-                  className="text-6xl font-light absolute"
+                  className="text-6xl font-light absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                 >
                   {units}
                 </motion.span>
               </AnimatePresence>
             </div>
-
-            <button 
+            <button
               onClick={decrement}
               disabled={units <= 2}
-              className={`p-4 -m-2 rounded-full ${theme.hover} transition-colors disabled:opacity-20 flex items-center justify-center`}
+              className={`p-4 -m-2 rounded-full ${theme.hover} transition-colors disabled:opacity-20 flex items-center justify-center shrink-0`}
               aria-label="Disminuir unidades"
             >
               <ChevronDown size={32} strokeWidth={1.5} />
             </button>
-            <span className={`text-[10px] uppercase tracking-widest ${theme.muted} font-sans`}>Unidades</span>
           </div>
 
-          <div className="flex flex-col items-center justify-center space-y-6">
-            <div className="h-44 w-full flex flex-col items-center justify-center relative">
-              <AnimatePresence initial={false}>
-                <motion.div
-                  key={totalPrice}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.1 }}
-                  transition={{ duration: 0.15 }}
-                  className={`text-7xl font-light ${theme.accent} transition-colors duration-700 absolute`}
-                >
-                  {totalPrice}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+          {/* Fila 1 – Precio (der) */}
+          <div className="flex flex-col items-center justify-center min-h-[220px] relative">
+            <AnimatePresence initial={false}>
+              <motion.div
+                key={totalPrice}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.1 }}
+                transition={{ duration: 0.15 }}
+                className={`text-7xl font-light ${theme.accent} transition-colors duration-700 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
+              >
+                {totalPrice}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Fila 2 – Etiquetas a la misma altura */}
+          <div className="flex items-end justify-center pt-1">
+            <span className={`text-[10px] uppercase tracking-widest ${theme.muted} font-sans`}>Unidades</span>
+          </div>
+          <div className="flex items-end justify-center pt-1">
             <span className={`text-[10px] uppercase tracking-widest ${theme.muted} font-sans`}>Valor Total</span>
           </div>
         </div>
