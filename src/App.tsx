@@ -41,7 +41,7 @@ export default function App() {
     const formattedTotal = `${totalPrice}.000`;
     const message = `*Unidades:* ${units}\n*Total:* ${formattedTotal}`;
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/?text=${encodedMessage}`, '_blank', 'noopener,noreferrer');
   };
 
   // Theme colors
