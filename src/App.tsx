@@ -3,19 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ChevronUp, ChevronDown, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
   const [units, setUnits] = useState(2);
-  const [isNight, setIsNight] = useState(false);
-
-  useEffect(() => {
-    const hours = new Date().getHours();
-    // Night is defined as 7 PM (19:00) to 7 AM (07:00)
-    setIsNight(hours >= 19 || hours < 7);
-  }, []);
 
   const getMultiplier = (u: number) => {
     if (u <= 5) return 12 - (2 / 3) * (u - 2); // 2–5: 12 → 10
@@ -44,27 +37,27 @@ export default function App() {
     window.open(`https://wa.me/?text=${encodedMessage}`, '_blank', 'noopener,noreferrer');
   };
 
-  // Theme colors
+  // Paleta fija (sin variación día/noche)
   const theme = {
-    bg: isNight ? 'bg-[#1A1614]' : 'bg-[#FDFBF7]',
-    text: isNight ? 'text-[#FDFBF7]' : 'text-[#2D241E]',
-    card: isNight ? 'bg-[#2D241E] border-stone-800 shadow-black/20' : 'bg-white border-stone-100 shadow-stone-200/50',
-    accent: isNight ? 'text-[#EC8B8B]' : 'text-[#A34343]',
-    muted: isNight ? 'text-stone-400' : 'text-stone-500',
-    divider: isNight ? 'bg-stone-700' : 'bg-stone-100',
-    hover: isNight ? 'hover:bg-stone-800' : 'hover:bg-stone-100/80',
+    bg: 'balancita-bg bg-[#2F4F4F]',
+    text: 'text-[#F0E6D2]',
+    card: 'balancita-card bg-[#2F4F4F] border-[#F0E6D2]/10',
+    accent: 'text-[#AB5541]',
+    muted: 'text-[#F0E6D2]',
+    divider: 'bg-[#F0E6D2]',
+    hover: 'hover:bg-[#F0E6D2]/10',
   };
 
   return (
-    <div className={`min-h-screen ${theme.bg} ${theme.text} font-serif flex flex-col items-center justify-center p-6 transition-colors duration-700`}>
+    <div className={`min-h-screen ${theme.bg} ${theme.text} font-serif flex flex-col items-center justify-center p-6`}>
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className={`w-full max-w-md ${theme.card} rounded-[2rem] shadow-xl py-14 px-8 border transition-colors duration-700`}
+        className={`w-full max-w-md ${theme.card} rounded-[2rem] shadow-xl py-14 px-8 border`}
       >
         <div className="grid grid-cols-2 gap-x-8 gap-y-1 mb-12 relative">
           {/* Vertical Divider */}
-          <div className={`absolute left-1/2 top-0 bottom-0 w-px ${theme.divider} -translate-x-1/2 transition-colors duration-700 pointer-events-none`} />
+          <div className={`absolute left-1/2 top-0 bottom-0 w-px ${theme.divider} -translate-x-1/2 pointer-events-none`} />
 
           {/* Fila 1 – Contador (izq): flecha ↑, número centrado, flecha ↓ */}
           <div className="flex flex-col items-center min-h-[220px]">
@@ -109,7 +102,7 @@ export default function App() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.1 }}
                 transition={{ duration: 0.15 }}
-                className={`text-7xl font-light ${theme.accent} transition-colors duration-700 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
+                className={`text-7xl font-light ${theme.accent} absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
               >
                 {totalPrice}
               </motion.div>
@@ -126,9 +119,7 @@ export default function App() {
         </div>
 
         <div className="text-center mb-12">
-          <p className={`${isNight ? 'text-stone-400' : 'text-stone-500'} italic text-sm transition-colors duration-700`}>
-            Eficiencia por cantidad: + es -
-          </p>
+          <p className={`${theme.muted} italic text-sm tracking-wide`}>+ = -</p>
         </div>
 
         <div className="flex justify-center">
@@ -136,7 +127,7 @@ export default function App() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleWhatsAppClick}
-            className={`w-16 h-16 ${isNight ? 'bg-[#128C7E]' : 'bg-[#25D366]'} text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:shadow-green-500/40`}
+            className="w-16 h-16 bg-[#4A657A] text-[#F0E6D2] rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:shadow-black/30"
             aria-label="Enviar por WhatsApp"
           >
             <MessageCircle size={32} strokeWidth={1.2} />
