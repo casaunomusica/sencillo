@@ -38,7 +38,8 @@ export default function App() {
   };
 
   const handleWhatsAppClick = () => {
-    const message = `*Unidades:* ${units}\n*Total:* ${totalPrice}`;
+    const formattedTotal = `${totalPrice}.000`;
+    const message = `*Unidades:* ${units}\n*Total:* ${formattedTotal}`;
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
   };
