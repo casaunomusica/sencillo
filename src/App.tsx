@@ -42,7 +42,7 @@ export default function App() {
     bg: 'balancita-bg bg-[#2F4F4F]',
     text: 'text-[#F0E6D2]',
     card: 'balancita-card bg-[#2F4F4F] border-[#F0E6D2]/10',
-    accent: 'text-[#AB5541]',
+    accent: 'text-[#B28742]',
     muted: 'text-[#F0E6D2]',
     divider: 'bg-[#F0E6D2]',
     hover: 'hover:bg-[#F0E6D2]/10',
