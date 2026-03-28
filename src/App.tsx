@@ -10,11 +10,9 @@ import { motion, AnimatePresence } from 'motion/react';
 export default function App() {
   const [units, setUnits] = useState(2);
 
-  const getMultiplier = (u: number) => {
-    if (u <= 5) return 12 - (2 / 3) * (u - 2); // 2–5: 12 → 10
-    if (u <= 10) return 10 - 0.2 * (u - 5); // 6–10: 9.8 → 9
-    if (u <= 15) return 9 - 0.2 * (u - 10); // 11–15: 8.8 → 8
-    return 8 - 0.2 * (u - 15); // 16–20: 7.8 → 7
+  const getMultiplier = (units: number): number => {
+    // Baja lineal desde 10 (en 2 uds) hasta 8 (en 10 uds)
+    return 10 - (2 / 8) * (units - 2);
   };
 
   const totalPrice = useMemo(() => {
@@ -23,7 +21,7 @@ export default function App() {
   }, [units]);
 
   const increment = () => {
-    if (units < 20) setUnits(prev => prev + 1);
+    if (units < 10) setUnits(prev => prev + 1);
   };
 
   const decrement = () => {
@@ -63,7 +61,7 @@ export default function App() {
           <div className="flex flex-col items-center min-h-[220px]">
             <button
               onClick={increment}
-              disabled={units >= 20}
+              disabled={units >= 10}
               className={`p-4 -m-2 rounded-full ${theme.hover} transition-colors disabled:opacity-20 flex items-center justify-center shrink-0`}
               aria-label="Aumentar unidades"
             >
@@ -119,7 +117,9 @@ export default function App() {
         </div>
 
         <div className="text-center mb-12">
-          <p className={`${theme.muted} italic text-sm tracking-wide`}>+ = -</p>
+          <p className={`${theme.muted} italic text-sm tracking-wide`}>
+            Eficiencia por cantidad: + es -
+          </p>
         </div>
 
         <div className="flex justify-center">
